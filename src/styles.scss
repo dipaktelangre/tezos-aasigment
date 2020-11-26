@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "~@fortawesome/fontawesome-free/css/all.css";
+// @import "~@fortawesome/fontawesome-free/scss/regular.scss";
+
 html,
 body {
   height: 100%;
@@ -8,12 +11,21 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+.wrapper {
+  padding: 20px;
+}
 
 table.transactions-table {
   border: 1px solid #eee;
-  margin: 25px auto;
+  margin: auto auto;
   width: 700px;
   border-collapse: collapse;
+  .table-header-actions {
+    color: #575b5f;
+    i {
+      margin-right: 10px;
+    }
+  }
   .table-header {
     background-color: #f8f9fa;
     color: #a7adb6;
@@ -32,6 +44,9 @@ table.transactions-table {
       padding: 2px 10px;
       border: 1px solid;
       border-radius: 500px;
+      &.transaction {
+        background-color: #d6f5e9;
+      }
     }
   }
 }

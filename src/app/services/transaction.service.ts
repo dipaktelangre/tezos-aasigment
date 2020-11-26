@@ -13,13 +13,13 @@ export class TransactionsService {
     console.log(baseUrl);
   }
 
-  getTransactions(): Observable<any> {
-    let params = {
-      columns: 'row_id,time,type,sender,volume',
-      receiver: 'tz1gfArv665EUkSg2ojMBzcbfwuPxAvqPvjo',
-      type: 'transaction',
-      limit: '10',
-    };
+  getTransactions(params): Observable<any> {
+    // let params = {
+    //   columns: 'row_id,time,type,sender,volume',
+    //   receiver: 'tz1gfArv665EUkSg2ojMBzcbfwuPxAvqPvjo',
+    //   type: 'transaction',
+    //   limit: '10',
+    // };
     let httpParams = new HttpParams({ fromObject: params });
 
     return this.http.get(this.baseUrl, { params: httpParams });

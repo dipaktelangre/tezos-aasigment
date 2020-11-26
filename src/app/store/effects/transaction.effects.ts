@@ -14,8 +14,8 @@ export class TransactionEffects {
   loadTransactions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadTransactions),
-      mergeMap(() =>
-        this.transactionService.getTransactions().pipe(
+      mergeMap((action) =>
+        this.transactionService.getTransactions(action.payload).pipe(
           map((transactions) =>
             loadTransactionsSuccess({ payload: transactions })
           ),
