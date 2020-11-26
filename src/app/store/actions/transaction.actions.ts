@@ -10,4 +10,14 @@ export const loadTransactionsSuccess = createAction(
   props<{ payload: any }>()
 );
 
+export const loadNextTransactions = createAction(
+  '[Transactions] Load Next',
+  props<{ payload: any }>()
+);
+
+export const loadNextTransactionsSuccess = createAction(
+  '[Transactions] Load Next Success',
+  props<{ payload: any }>()
+);
+
 export const loadTransactionsError = createAction('[Transactions] Load Error');

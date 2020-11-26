@@ -1,31 +1,58 @@
+<div class="title">
+  <h3>Transactions</h3>
+</div>
 <div class="wrapper">
-  <table class="transactions-table">
-    <thead>
-      <tr class="table-header-actions">
-        <th colspan="4">
-          <span><i class="fas fa-history"></i>Recent transactions</span>
-        </th>
-      </tr>
-      <tr class="table-header">
-        <ng-container *ngFor="let column of visibleColumns">
-          <th>{{ columns[column] }}</th>
-        </ng-container>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let trans of transactions">
-        <ng-container *ngFor="let column of visibleColumns; let i = index">
-          <td>
+  <cdk-virtual-scroll-viewport
+    #scroller
+    itemSize="10"
+    style="height: 100%; width: 100%"
+  >
+    <table class="transactions-table">
+      <thead>
+        <tr class="table-header-actions">
+          <th colspan="4">
             <span
-              [class]="trans[i]"
-              [ngClass]="{ status: column === 'type' }"
-              >{{
-                column === "time" ? (trans[i] | date: "medium") : trans[i]
-              }}</span
+              ><i class="fas fa-history"></i>Recent transactions ({{
+                transactions.length
+              }})</span
             >
+          </th>
+        </tr>
+        <tr class="table-header">
+          <ng-container *ngFor="let column of visibleColumns">
+            <th>{{ columns[column] }}</th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *cdkVirtualFor="let trans of transactions"
+          style="height: 100%; width: 100%"
+        >
+          <ng-container *ngFor="let column of visibleColumns; let i = index">
+            <td>
+              <span
+                [class]="trans[i]"
+                [ngClass]="{ status: column === 'type' }"
+                >{{
+                  column === "time" ? (trans[i] | date: "medium") : trans[i]
+                }}</span
+              >
+            </td>
+          </ng-container>
+        </tr>
+
+        <tr>
+          <td colspan="100%" align="center">
+            <div class="spinner-item">
+              <mat-progress-spinner
+                [mode]="'indeterminate'"
+                [diameter]="50"
+              ></mat-progress-spinner>
+            </div>
           </td>
-        </ng-container>
-      </tr>
-    </tbody>
-  </table>
+        </tr>
+      </tbody>
+    </table>
+  </cdk-virtual-scroll-viewport>
 </div>

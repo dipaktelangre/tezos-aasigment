@@ -4,6 +4,8 @@ import { EMPTY, of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { TransactionsService } from '../../services/transaction.service';
 import {
+  loadNextTransactions,
+  loadNextTransactionsSuccess,
   loadTransactions,
   loadTransactionsError,
   loadTransactionsSuccess,
@@ -18,6 +20,20 @@ export class TransactionEffects {
         this.transactionService.getTransactions(action.payload).pipe(
           map((transactions) =>
             loadTransactionsSuccess({ payload: transactions })
+          ),
+          catchError(() => of(loadTransactionsError()))
+        )
+      )
+    )
+  );
+
+  loadNextTransactions$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadNextTransactions),
+      mergeMap((action) =>
+        this.transactionService.getTransactions(action.payload).pipe(
+          map((transactions) =>
+            loadNextTransactionsSuccess({ payload: transactions })
           ),
           catchError(() => of(loadTransactionsError()))
         )

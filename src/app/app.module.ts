@@ -13,6 +13,8 @@ import { transactionReducer } from './store/reducers/transaction.reducer';
 import { TransactionEffects } from './store/effects/transaction.effects';
 import { getBaseUrl } from './services/url-helpers';
 import { HttpClientModule } from '@angular/common/http';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [AppComponent, TransactionsComponent],
@@ -29,6 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
       maxAge: 25, // Retains last 25 states
     }),
     HttpClientModule,
+    ScrollingModule,
+    MatProgressSpinnerModule,
   ],
   providers: [{ provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] }],
   bootstrap: [AppComponent],

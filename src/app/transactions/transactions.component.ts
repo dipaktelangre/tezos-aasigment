@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { loadTransactions } from '../store/actions/transaction.actions';
-
-import { AppState } from '../store/models/app-state';
+import { filter, map, pairwise, throttleTime } from 'rxjs/operators';
+import {
+  loadNextTransactions,
+  loadTransactions,
+} from '../store/actions/transaction.actions';
 
 @Component({
   selector: 'app-transactions',
@@ -17,19 +20,25 @@ export class TransactionsComponent implements OnInit {
     type: 'Type',
     time: 'Time',
     sender: 'sender',
+    status: 'Status',
+    fee: 'fee',
   };
   visibleColumns = new Set<string>(Object.keys(this.columns));
 
-  constructor(private store: Store<{ transactions: any }>) {
+  @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
+
+  lastRowId: number;
+
+  constructor(
+    private store: Store<{ transactions: any }>,
+    private ngZone: NgZone
+  ) {
     this.transactions$ = store.select('transactions');
     this.transactions$.subscribe((trans) => {
       console.log(trans);
       if (trans && trans.length > 0) {
         this.transactions = trans;
-        // tran.map((t) => {
-        //   const [row_id, time, type, sender, volume] = t;
-        //   return { row_id, time, type, sender, volume };
-        // });
+        this.lastRowId = trans[0][0];
       }
     });
   }
@@ -42,6 +51,30 @@ export class TransactionsComponent implements OnInit {
       limit: '10',
     };
     this.store.dispatch(loadTransactions({ payload: { ...params } }));
+  }
+
+  ngAfterViewInit(): void {
+    this.scroller
+      .elementScrolled()
+      .pipe(
+        map(() => this.scroller.measureScrollOffset('bottom')),
+        pairwise(),
+        filter(([y1, y2]) => y2 < y1 && y2 < 140),
+        throttleTime(200)
+      )
+      .subscribe(() => {
+        this.ngZone.run(() => {
+          console.log('load more');
+          let params = {
+            columns: [...this.visibleColumns].join(','),
+            receiver: 'tz1gfArv665EUkSg2ojMBzcbfwuPxAvqPvjo',
+            type: 'transaction',
+            'cursor.lte': this.lastRowId,
+            limit: '10',
+          };
+          this.store.dispatch(loadNextTransactions({ payload: { ...params } }));
+        });
+      });
   }
 
   columnIsVisible = (column: string): boolean =>
