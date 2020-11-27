@@ -4,11 +4,13 @@ This is assigment to demonstrate ngrx store with transactions data.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
+Run `ng serve`
+
+Navigate to `http://localhost:4200/`.
 
 ## Build
 
-Run `ng build` to build the project.
+Run `ng build`
 
 ## Running unit tests
 
@@ -31,3 +33,4 @@ Run `ng e2e`
 - Unit test
 - E2E Test
 - ES6
+- SASS SCSS
