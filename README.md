@@ -37,4 +37,4 @@ Run `ng e2e`
 
 ## Preview
 
-![Demo Image](./img/demo.gif)
+![Demo Image](img/demo.gif)
