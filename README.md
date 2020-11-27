@@ -37,4 +37,8 @@ Run `ng e2e`
 
 ## Preview
 
-![Demo Image](https://github.com/dipaktelangre/tezos-aasigment/blob/master/img/demo.gif)
+![Demo Image](/img/demo.gif)
+
+![Demo Image](/img/demo.PNG)
+
+![Demo Image](img/demo.PNG)
