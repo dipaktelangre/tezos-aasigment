@@ -34,3 +34,7 @@ Run `ng e2e`
 - E2E Test
 - ES6
 - SASS SCSS
+
+## Preview
+
+![Demo Image](./img/demo.gif)
