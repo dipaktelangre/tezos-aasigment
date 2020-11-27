@@ -35,7 +35,6 @@ export class TransactionsComponent implements OnInit {
   ) {
     this.transactions$ = store.select('transactions');
     this.transactions$.subscribe((trans) => {
-      console.log(trans);
       if (trans && trans.length > 0) {
         this.transactions = trans;
         this.lastRowId = trans[0][0];

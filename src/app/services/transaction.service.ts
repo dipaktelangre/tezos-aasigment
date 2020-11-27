@@ -9,17 +9,9 @@ export class TransactionsService {
   constructor(
     private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string
-  ) {
-    console.log(baseUrl);
-  }
+  ) {}
 
   getTransactions(params): Observable<any> {
-    // let params = {
-    //   columns: 'row_id,time,type,sender,volume',
-    //   receiver: 'tz1gfArv665EUkSg2ojMBzcbfwuPxAvqPvjo',
-    //   type: 'transaction',
-    //   limit: '10',
-    // };
     let httpParams = new HttpParams({ fromObject: params });
 
     return this.http.get(this.baseUrl, { params: httpParams });

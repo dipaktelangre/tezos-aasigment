@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'tezos';
+  title = 'tezos|transactions';
   arrNumber: number[] = [];
   constructor() {
     for (let i = 0; i < 10000; i++) {

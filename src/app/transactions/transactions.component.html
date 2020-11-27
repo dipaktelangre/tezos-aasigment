@@ -25,10 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          *cdkVirtualFor="let trans of transactions"
-          style="height: 100%; width: 100%"
-        >
+        <tr *cdkVirtualFor="let trans of transactions" class="data-row">
           <ng-container *ngFor="let column of visibleColumns; let i = index">
             <td>
               <span
